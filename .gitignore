@@ -1,0 +1,9 @@
+/-
+/.vscode
+/ck
+/my_env
+/myenv
+/alpha/node_modules
+/node_modules
+!__pycache__/ 
+*.pyc

@@ -1,0 +1,208 @@
+{% extends "_base_takim.html" %}
+{% load account_tags %}
+{% block content %}
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+<div class="pt-6 flex w-full justify-center items-center">
+    <div class="inline-grid w-full">
+        <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12  pt-24">
+            <div class="px-6">
+            <img src="{{sporcu.resim.url}}" alt="{{antrenor}}" class="shadow-lg rounded-full w-24 h-24 mx-auto"
+                style="max-width: 120px;" />
+            <div class="pt-6 text-center">
+                <h5 class="text-xl font-bold">{{sporcu.adi}} {{sporcu.soyadi}}</h5>
+        
+                <div class="mt-6">
+                <button class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                    type="button">
+                    <i class="fab fa-twitter"></i></button><button
+                    class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                    type="button">
+                    <i class="fab fa-facebook-f"></i></button><button
+                    class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                    type="button">
+                    <i class="fab fa-dribbble"></i>
+                </button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+            
+        <div class="flex w-full shadow-md sm:rounded-lg justify-center">
+            <table class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Branş-Mesafe
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Son Yarış
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Best Time
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            {{yaris_list.0.barajlar.0.sehir}} <br> {{yaris_list.0.barajlar.0.tarih}}
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for yaris in yaris_list %}
+                    
+                    <tr
+                    onclick="updateChart({{yaris.xValues}},{{yaris.yValues}},'{{yaris.brans}} - {{yaris.mesafe}}','{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}')"
+                    data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                    class="w-full max-h-20 bg-white border-b focus:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                       
+                        <td class="px-2 max-w-20 flex-wrap">{{yaris.brans}} {{yaris.mesafe}}</td>
+
+                        <td class="px-2 max-w-20 flex-wrap">{{yaris.son_yaris|slice:"0:11" }}</td>
+                        <td class="px-2 max-w-20 flex-wrap  ">{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}</td>
+                        
+                        {% for baraj in yaris.barajlar  %}
+                        <td class="px-2 max-w-20 flex-wrap {%if yaris.best_time < baraj.baraj %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
+                            {{baraj.baraj|time:"i:s.u"|slice:"0:8" }}
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > baraj.baraj %} - {{yaris.fark.0}} {% endif %}</span>
+                            
+                        
+                        </td>
+                        {% endfor %}
+                        
+              
+                
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="popup-modal" tabindex="-1"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+
+                    <div class="relative border-spacing-3 bg-gradient-to-b from-slate-100 via-zinc-200 to-slate-100 rounded-lg shadow-sm dark:bg-gray-700">
+
+                        <div class="p-6 md:p-5 text-center">
+                            <h1>{{sporcu.adi}} {{sporcu.soyadi}}
+                                 <br> <span id="brans_mesafe"></span>
+                                 <br> <span class="text-red-500 text-xl font-bold" id="best_time"></span>
+                            
+                            
+                            </h1>
+            
+                        </div>
+                        <div class="pt-6" id="graph_container">
+                            <canvas  id="myChart" style="width:100%; max-width:700px"></canvas>
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+                        <script>
+
+                            // setup 
+                            const data = {
+                            
+                            datasets: [{
+                               labels:false,
+                                data: [],
+                                borderColor:'rgba(75, 192, 192, 0.2)',
+                                borderWidth:5,
+
+                                fill: {
+                                    target: 'start',
+                                    above: 'rgba(75, 192, 192, 0.2)',   
+                                    below: 'rgba(75, 192, 192, 0.2)', 
+                                        },
+
+                                pointRadius: 5,
+                                pointHoverRadius: 8,
+                            }]
+                            };
+
+                            // config 
+                            const config = {
+                            type: 'line',
+                            data,
+                            options: {
+                                layout: {
+                                        padding:{top:30,left:6}
+                                    },
+                                    
+                                    scales: {
+                                            y:{
+                                                reverse: true,
+                                            },   
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                display: false,
+                                            },
+
+                                        
+                                        datalabels: {
+                                        color: '#36A2EB',
+                                        anchor:'top',
+                                        align:'top',
+                                            }
+                                            },
+                                    }
+                            };
+                            Chart.register(ChartDataLabels);
+                            // render init block
+                            const myChart = new Chart(
+                            document.getElementById('myChart'),
+                            config
+                            );
+
+                            function updateChart (xValues,yValues,brans,best_time){
+                                document.getElementById('brans_mesafe').innerText = brans
+                                document.getElementById('best_time').innerText = best_time
+                                
+                                bgcolor=[]
+                                yValuesRound=[]
+                                bestTime=Math.min(...yValues);
+                                yValues.forEach((yValue) => {
+                                    yValuesRound.push(Math.round(yValue*100)/100)
+                                    if (yValue > bestTime) {
+                                        bgcolor.push('rgba(75, 192, 192, 0.2)');
+                                        } else {
+                                            bgcolor.push('rgb(210, 33, 71)');
+                                        }      
+                                });
+                                myChart.data.datasets[0].data=yValuesRound;
+                                myChart.data.labels=xValues;
+                                myChart.data.datasets[0].borderColor=bgcolor;
+                                
+                                myChart.update();
+
+                            }
+
+ 
+                        </script>
+
+                        <div class="p-4 md:p-5 text-center">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    {% endblock content %}

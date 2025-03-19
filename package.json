@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@designbycode/tailwindcss-text-shadow": "^2.1.6",
+    "flowbite": "^2.5.2",
+    "taos": "^1.0.5"
+  }
+}

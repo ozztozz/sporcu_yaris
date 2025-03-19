@@ -1,0 +1,62 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<!-- 
+Install the "flowbite-typography" NPM package to apply styles and format the article content: 
+
+URL: https://flowbite.com/docs/components/typography/ 
+-->
+<div class="container overflow-x-auto py-20 lg:py-12  shadow-md sm:rounded-lg ">
+
+    <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 py-20 lg:py-12 bg-white dark:bg-gray-900 antialiased">
+        <div class=" px-4 mx-auto max-w-screen-xl ">          
+             <a href="{% url "brans_list" %}">
+            <button type="button"
+                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Brans Listesi</button>
+        </a>
+            </div>
+
+        <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+ 
+            <article
+                class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+                <header class="mb-4 lg:mb-6 not-format">
+
+                    <h1
+                        class="mb-4 text-2xl font-extrabold leading-tight text-gray-700 lg:mb-6 lg:text-2xl dark:text-white">
+                        Baslik</h1>
+                </header>
+                <header class="mb-4 lg:mb-6 not-format">
+
+                    <h1
+                        class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+                        {{brans.brans}}</h1>
+                </header>
+                <header class="mb-4 lg:mb-6 not-format">
+
+                    <h1
+                        class="mb-4 text-2xl font-extrabold leading-tight text-gray-700 lg:mb-6 lg:text-2xl dark:text-white">
+                        Ozet</h1>
+                </header>
+                <p>{{brans.ozet}}</p>
+                <br>
+                <header class="mb-4 lg:mb-6 not-format">
+
+                    <h1
+                        class="mb-4 text-2xl font-extrabold leading-tight text-gray-700 lg:mb-6 lg:text-2xl dark:text-white">
+                        Aciklama</h1>
+                </header>
+                <p>{{brans.aciklama|safe}}</p>
+
+        </div>
+        <div class=" px-4 mx-auto max-w-screen-xl ">          
+            <a href="{% url "brans_list" %}">
+           <button type="button"
+               class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Guncelle</button>
+       </a>
+           </div>
+    </main>
+</div>
+
+{% endblock content %}

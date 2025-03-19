@@ -1,0 +1,57 @@
+{% extends "_base_takim.html" %}
+
+
+
+
+{% block content %}
+<div class=" mb-2 bg-gray-50 justify-center text-center pt-20 shadow-2xl shadow-blue-400">
+
+    <h2 class="py-4 text-center  text-2xl tracking-tight font-bold text-gray-900 dark:text-white">Antrenman Ekle</h2>
+
+</div>
+
+<section class="bg-white dark:bg-gray-900">
+    
+
+    <div class="py-2 px-2 mx-auto max-w-2xl lg:py-16">
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+              
+                <div class="w-full">
+                    <label for="dogum_tarihi" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Tarih</label>
+                    {{ form.gun.errors }}
+                    {{ form.gun}}
+                </div>
+              
+                <div class="sm:col-span-2">
+                    <label for="name" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"> Takimlar</label>
+                    {{ form.takimlar.errors }}
+                    {{ form.takimlar }}
+                </div>
+                <div class="w-full">
+                    <label for="name" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Mesafe</label>
+                    {{ form.mesafe.errors }}
+                    {{form.mesafe }}
+                </div>
+  
+
+            
+
+            </div>
+
+            <div class="flex justify-center pt-6 ">
+                <button type="submit" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Kaydet</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+  
+
+
+
+
+
+{% endblock content %}

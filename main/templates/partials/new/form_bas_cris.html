@@ -1,0 +1,15 @@
+{% load tailwind_filters %}
+
+<section class=" bg-gray-200 dark:bg-gray-900 mt-20">
+
+    <h2 class="text-base/7 font-semibold text-gray-900">Basvuru Formu</h2>
+    <p class="mt-1 text-sm/6 text-gray-600">Bilgileriniz basvuru islemleriniz disinda kullanilmayacaktir</p>
+
+    <form>
+        {% csrf_token %}
+
+        {{form|crispy}}
+
+    </form>
+
+</section>

@@ -1,0 +1,62 @@
+{% extends "_base_account.html" %}
+{% load account_tags %}
+{% block content %}
+
+<div class=" mb-2 bg-gray-50 justify-center text-center pt-20 shadow-2xl shadow-blue-400">
+
+    <h2 class="pt-6 text-center  text-2xl tracking-tight font-bold text-gray-900 dark:text-white">Yazilar</h2>
+
+</div>
+<div class="flex justify-center pt-6 ">
+    <a href="/account/create_post">
+        <button type="submit"
+            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Yeni
+            Ekle</button>
+
+    </a>
+</div>
+<div class="flex overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Baslik
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Yazar
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Ozet
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Guncelle</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in blog_list %}
+
+            <tr
+                class="relative max-h-20 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-2 py-4 font-medium text-gray-900  dark:text-white">
+                    {{item.baslik}}
+                </th>
+                <td class="px-2 py-4">
+                    {{item.author.adi}} {{item.author.soyadi}}
+                </td>
+                <td class="px-2 py-4 max-w-20 flex-wrap">
+                    {{item.metin|remove_url|safe|truncatewords:10}}
+                </td>
+
+                <td class="px-2 py-4 text-right">
+                    <a href="/account/update_post/{{item.slug}}"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Guncelle</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock content %}

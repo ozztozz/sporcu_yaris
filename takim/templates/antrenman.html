@@ -1,0 +1,108 @@
+{% extends "_base_takim.html" %}
+{% load account_tags %}
+{% block content %}
+
+<<<<<<< HEAD
+<div class=" mb-2 bg-gray-50 justify-center text-center pt-20 shadow-2xl shadow-blue-400">
+
+    <h2 class="pt-6 text-center  text-2xl tracking-tight font-bold text-gray-900 dark:text-white">Takimlar</h2>
+
+</div>
+<div class="flex justify-center pt-6 ">
+    <a href="/takim/takim_ekle">
+        <button type="submit"
+            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Yeni
+            Ekle</button>
+
+    </a>
+</div>
+
+
+
+
+
+<div class="grid grid-cols-7">
+    {% for gun,ant in haftalik_nested.items%}
+    <div class=" grid-rows-10 gap-2 m-2 justify-between bg-blue-300 rounded-md ">
+        <div class="font-bold text-center">{{gun}}</div>
+
+        <div class="row-span-3">
+            {% for antrenman in ant.sabah %}
+            <div class=" bg-blue-300 ">
+
+                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
+                {{antrenman.tur}}-
+                {{antrenman.baslangic}}
+                {{antrenman.bitis}}
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class=" w-full bg-blue-800 h-4"></div>
+
+        <div class="row-span-3">
+            {% for antrenman in ant.aksam %}
+            <div class=" bg-blue-300">
+
+                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
+                {{antrenman.tur}}-
+                {{antrenman.baslangic}}
+                {{antrenman.bitis}}
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+    {% endfor %}
+</div>
+=======
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>    
+
+<div class=" mb-2 bg-gray-50 justify-center text-center pt-20 shadow-2xl shadow-blue-400">
+
+    <h2 class="pt-6 text-center  text-2xl tracking-tight font-bold text-gray-900 dark:text-white">Antremana Basla</h2>
+
+</div>
+
+
+
+<div class="row-span-3">
+    {% for antrenman in gunluk_antrenman%}
+    <div class=" bg-blue-300 ">
+
+        <span class="font-semibold">{{antrenman.takim.adi}}</span><br>
+        <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
+        {{antrenman.tur}}-
+        {{antrenman.baslangic}}
+        {{antrenman.bitis}}
+
+        <button  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+        hx-vals='{"antrenman":"{{antrenman.takim.id}}"}'
+        hx-post="{% url 'gunluk_ekle' %}"
+        hx-trigger="click"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-target="#takim"
+   >
+        Başlat
+  
+    </button>
+
+
+    </div>
+    {% endfor %}
+</div>
+<div id="takim">aaaaaaa</div>
+<div >
+    <div>-----------</div>
+</div>
+<div id="giren">
+    <div>bbbbbbbbbbbb</div>
+</div>
+
+>>>>>>> da9b8a88fc1954b0ba7d7f79a9fecb38544281da
+
+{% endblock content %}

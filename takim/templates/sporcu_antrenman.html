@@ -1,0 +1,46 @@
+<div class="flex">
+{% for sporcu in sporcu_list %}
+
+        <button id="sporcu{{sporcu.id}}"
+                
+                    hx-vals='{"antrenman":"{{antrenman.id}}","sporcu":{{sporcu.id}}}'
+                    hx-post="{% url "htmx_sporcu_ekle" %}"
+                    hx-target="#giren"
+                    hx-swap="afterbegin"
+                  
+                    
+                    >
+                    <img
+
+                    class="h-16 w-16 rounded-full" src="{{sporcu.resim.url}}" alt="">
+                    <p>{{sporcu}}</p>
+             
+        </button>
+
+{% endfor %}
+
+
+{% if sporcu_tek %}
+
+<button id="cikar_sporcu{{sporcu_tek.id}}"
+hx-vals='{"ekle_cikar":"cikar","sporcu":{{sporcu_tek.id}}}'
+hx-post="{% url "htmx_sporcu_ekle" %}"
+hx-target="#takim"
+hx-swap="afterbegin"
+>
+  
+        <img
+        class="h-16 w-16 rounded-full" src="{{sporcu_tek.resim.url}}" alt="">
+        <p>{{sporcu_tek}}</p>
+    
+</button>
+<button id="{% if ekle_cikar == 'cikar'%}cikar_{% endif %}sporcu{{sporcu_tek.id}}" disabled
+hx-swap-oob="delete"
+>
+{{ekle_cikar}}
+</button>
+{% endif %}
+</div>
+
+
+

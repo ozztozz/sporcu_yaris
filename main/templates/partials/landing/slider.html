@@ -1,0 +1,137 @@
+<div class="example" data-component="example" data-active-class="example--active">
+  <div class="example__frame bg-slate-300 ">
+    <div class="space space--medium">
+
+      <div id="options-autoplay" class="slider glide glide--ltr glide--slider glide--swipeable">
+        <div class="slider__track glide__track" data-glide-el="track">
+          <ul class="slider__slides glide__slides"
+            style="transition: transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1); width: 1153.33px; transform: translate3d(-692px, 0px, 0px);">
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-right: 5px;">0</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">1</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">2</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">3</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">4</li>
+
+            <li class="slider__frame glide__slide glide__slide--active"
+              style="width: 105.333px; margin-left: 5px; margin-right: 5px;">5</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">6</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">7</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px; margin-right: 5px;">8</li>
+
+            <li class="slider__frame glide__slide" style="width: 105.333px; margin-left: 5px;">9</li>
+
+          </ul>
+        </div>
+
+        <div data-glide-el="controls">
+          <button class="slider__arrow slider__arrow--prev glide__arrow glide__arrow--prev" data-glide-dir="<">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path d="M0 12l10.975 11 2.848-2.828-6.176-6.176H24v-3.992H7.646l6.176-6.176L10.975 1 0 12z"></path>
+            </svg>
+          </button>
+
+          <button class="slider__arrow slider__arrow--next glide__arrow glide__arrow--next" data-glide-dir=">">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z">
+              </path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="slider__bullets glide__bullets" data-glide-el="controls[nav]">
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=0"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=1"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=2"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=3"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=4"></button>
+
+          <button class="slider__bullet glide__bullet glide__bullet--active" data-glide-dir="=5"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=6"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=7"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=8"></button>
+
+          <button class="slider__bullet glide__bullet" data-glide-dir="=9"></button>
+
+        </div>
+      </div>
+
+
+
+      <p class="paragraph">
+
+        Automatically change slides after <input class="input input--inline" id="options-autoplay-input" type="number"
+          value="2000" min="1000" max="10000" step="1000"> milliseconds
+
+      </p>
+    </div>
+
+  </div>
+
+  <div class="example__markup">
+    <button class="example__toggle" data-ref="example[toggle]">
+      <div class="grid grid--justify">
+        <div class="grid__column">
+          View example's code
+        </div>
+
+        <div class="grid__column grid__column--shrink">
+          <span class="example__arrow"></span>
+        </div>
+      </div>
+    </button>
+    <pre class="example__code language-js line-numbers"
+      tabindex="0"><code class="language-js"><span class="token keyword">var</span> input <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#options-autoplay-input'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> glide <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Glide</span><span class="token punctuation">(</span><span class="token string">'#options-autoplay'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  autoplay<span class="token operator">:</span> input<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+  hoverpause<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  perView<span class="token operator">:</span> <span class="token number">3</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+input<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'input'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  glide<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    autoplay<span class="token operator">:</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value <span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+glide<span class="token punctuation">.</span><span class="token function">mount</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/glide.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+      var input = document.querySelector('#options-autoplay-input')
+
+      var glide = new Glide('#options-autoplay', {
+        autoplay: input.value,
+        hoverpause: false,
+        perView: 3
+      })
+
+      input.addEventListener('input', function (event) {
+        glide.update({
+          autoplay: (event.target.value != 0) ? event.target.value : false
+        })
+      })
+
+      glide.mount()
+
+    })
+  </script>
+</div>
