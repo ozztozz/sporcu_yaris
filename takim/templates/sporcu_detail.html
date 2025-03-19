@@ -50,9 +50,18 @@
                         <th scope="col" class="px-6 py-3">
                             Best Time
                         </th>
+                        
+                        {% if yaris_list.0.barajlar.0.sehir %}
                         <th scope="col" class="px-6 py-3">
                             {{yaris_list.0.barajlar.0.sehir}} <br> {{yaris_list.0.barajlar.0.tarih}}
                         </th>
+                        
+                        {% endif %}
+                            
+                
+                        
+                            
+                   
                     </tr>
                 </thead>
 
@@ -77,8 +86,6 @@
                         <td class="px-2 max-w-20 flex-wrap {%if yaris.best_time < baraj.baraj %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
                             {{baraj.baraj|time:"i:s.u"|slice:"0:8" }}
                             <span class="font-semibold text-red-400">{%if yaris.best_time > baraj.baraj %} - {{yaris.fark.0}} {% endif %}</span>
-                            
-                        
                         </td>
                         {% endfor %}
                         
