@@ -1,7 +1,7 @@
 from django.db import models
 from main.models import Antrenor
 from datetime import date
-
+import uuid
 # Create your models here.
 
 
@@ -50,6 +50,12 @@ class Sporcu (models.Model):
     telefon_veli=models.CharField(max_length=10)
     aktif=models.BooleanField(default=True)
     takim=models.ForeignKey(Takim,on_delete=models.CASCADE)
+    uuid=models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.uuid = uuid.uuid4()
+        super(Sporcu, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.adi +' '+ self.soyadi
 
@@ -108,8 +114,14 @@ class Barajlar (models.Model):
     mesafe=models.CharField(max_length=100)
     brans=models.CharField(max_length=100)
     yas=models.IntegerField()
+    yas_ust=models.IntegerField(null=True,blank=True)
     baraj_turu=models.CharField(max_length=100)
     baraj=models.TimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.yas_ust:
+            self.yas_ust = self.yas
+        super(Barajlar, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.sehir+ '-'+ self.cinsiyet +'-'+  self.mesafe +'-'+  self.brans

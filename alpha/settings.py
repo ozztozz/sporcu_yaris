@@ -150,4 +150,4 @@ SUMMERNOTE_CONFIG = {
               'width': '100%',
      }
 
-TIME_INPUT_FORMATS = ('%H:%M:%S.%f',)
+TIME_INPUT_FORMATS = ('%M:%S.%f',)
