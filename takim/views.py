@@ -43,7 +43,7 @@ def takim_guncelle(request,id):
 
     form = FormTakim(instance = takim)
     return render(request, "takim_ekle.html", {'form':form,'takim':takim})
-
+@login_required
 def sporcu_list(request):
     sporcu_list=Sporcu.objects.all()
     return render(request,'sporcu_list.html',{'sporcu_list':sporcu_list})
