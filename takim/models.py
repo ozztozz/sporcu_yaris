@@ -29,6 +29,24 @@ CINSIYET = (
     ('Kadın', "Kadın"),
 )
 
+BRANS = (
+    ('Serbest', "Serbest"),
+    ('Kurbağalama', "Kurbağalama"),
+    ('Kelebek', "Kelebek"),
+    ('Sırtüstü', "Sırtüstü"),
+    ('Karışık', "Karışık"),
+)
+
+MESAFE = (
+    ('50', '50'),
+    ('100', '100'),
+    ('200', '200'),
+    ('400', '400'),
+    ('800', '800'),
+    ('1500', '1500'),
+
+)
+
 class Takim (models.Model):
     adi=models.CharField(max_length=30)
     antrenor=models.ManyToManyField(Antrenor)
@@ -110,13 +128,8 @@ class Barajlar (models.Model):
     yaris=models.CharField(max_length=100)
     sehir=models.CharField(max_length=100)
     tarih=models.DateField(max_length=100)
-    cinsiyet=models.CharField(max_length=100)
-    mesafe=models.CharField(max_length=100)
-    brans=models.CharField(max_length=100)
     yas=models.IntegerField()
     yas_ust=models.IntegerField(null=True,blank=True)
-    baraj_turu=models.CharField(max_length=100)
-    baraj=models.TimeField()
 
     def save(self, *args, **kwargs):
         if not self.yas_ust:
@@ -124,4 +137,14 @@ class Barajlar (models.Model):
         super(Barajlar, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.sehir+ '-'+ self.cinsiyet +'-'+  self.mesafe +'-'+  self.brans
+        return self.sehir + '-' +str( self.yas) 
+    
+class BarajBrans (models.Model):
+    baraj_id=models.ForeignKey(Barajlar,on_delete=models.CASCADE,related_name='brans_baraj')
+    brans=models.CharField(max_length=100,choices=BRANS)
+    mesafe=models.CharField(max_length=100,choices=MESAFE)
+    baraj=models.TimeField()
+    cinsiyet=models.CharField(max_length=100,choices=CINSIYET)
+    
+    def __str__(self):
+        return self.brans + '-' +self.mesafe

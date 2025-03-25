@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES,Barajlar
+from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES,BarajBrans,Barajlar
 from .forms import FormTakim,FormSporcu,FormAntrenman
 from datetime import  time, datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -233,15 +233,6 @@ def sporcu_detail(request,uuid):
 
     sporcu_yaris_list=Yarislar.objects.filter(sporcu_id=sporcu.id)
     sporcu_yarislar=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),son_yaris=Max('tarih')).order_by('-son_yaris','brans')
-    baraj_list=Barajlar.objects.filter(tarih__gte=datetime.now(),
-                                      cinsiyet=sporcu.cinsiyet,
-                                      yas__lte=sporcu_yas,
-                                      yas_ust__gte=sporcu_yas,
-                                     
-                                      )
-
-    baraj_sehir=baraj_list.values('sehir','tarih').distinct()
-
 
     for yaris in sporcu_yarislar:
         eklenecek_yaris={}
@@ -264,16 +255,19 @@ def sporcu_detail(request,uuid):
                 yValues.append(g_yaris.zaman.second+g_yaris.zaman.microsecond / 1000000)
         eklenecek_yaris['xValues']=xValues
         eklenecek_yaris['yValues']=yValues
+
+        baraj_list=Barajlar.objects.filter(tarih__gte=datetime.now(),
+                                      yas__lte=sporcu_yas,
+                                      yas_ust__gte=sporcu_yas,
+                                      )
+
         
         
-        for counter,baraj in enumerate(baraj_sehir):
-                eklenecek_yaris['sehir'+str(counter)]=baraj['sehir']
-                eklenecek_yaris['tarih'+str(counter)]=baraj['tarih']
-                sehir_baraj=baraj_list.filter(brans=yaris['brans'],
-                                                mesafe=yaris['mesafe'],
-                                                sehir=baraj['sehir'],
-                                                tarih=baraj['tarih'],
-                                                ).first()
+        for counter,baraj in enumerate(baraj_list):
+                eklenecek_yaris['sehir'+str(counter)]=baraj.sehir
+                eklenecek_yaris['tarih'+str(counter)]=baraj.tarih
+                sehir_baraj=baraj.brans_baraj.filter(brans=yaris['brans'],mesafe=yaris['mesafe'],cinsiyet=sporcu.cinsiyet).first()
+                
                 if sehir_baraj:
                         eklenecek_yaris['baraj'+str(counter)]=sehir_baraj.baraj
                         diff = datetime.combine(datetime.now().date(), yaris['best_time'])-datetime.combine(datetime.now().date(), sehir_baraj.baraj)

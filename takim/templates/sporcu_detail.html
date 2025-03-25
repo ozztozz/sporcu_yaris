@@ -102,7 +102,7 @@
                         {% if yaris.sehir0 %}
                         <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj0  %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
                             {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj0  %} - {{yaris.fark0 }} {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj0  %} <br> {{yaris.fark0 }} {% endif %}</span>
                         </td>
                             
                         {% endif %}
@@ -112,14 +112,14 @@
                         {% if yaris.sehir1 %}
                         <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj1  %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
                             {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj1  %} - {{yaris.fark1 }} {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj1  %} <br> {{yaris.fark1 }} {% endif %}</span>
                         </td>
                         {% endif %}
 
                         {% if yaris.sehir2 %}
                         <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj2  %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
                             {{yaris.baraj2 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj2  %} - {{yaris.fark2 }} {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj2  %} <br> {{yaris.fark2 }} {% endif %}</span>
                         </td>
                         {% endif %}
                             
