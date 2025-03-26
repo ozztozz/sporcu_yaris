@@ -35,23 +35,30 @@
         </thead>
         <tbody>
             {% for sporcu in sporcu_list %}
-
+            
+            {% ifchanged sporcu.dogum_tarihi|date:"Y" %}
+                
+            
+                
+            <tr>           
+                
+                
+                <th scope="row" class="px-2 text-lg font-bold text-gray-900  dark:text-white">
+                {{sporcu.dogum_tarihi|date:"Y"}}
+            </th></tr>
+            {% endifchanged %}
             <tr
                 class="relative max-h-20 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+     
                 <th scope="row" class="flex p-2 items-center justify-center">
                     <img src="{{sporcu.resim.url}} " class="h-16 w-16" alt="{{sporcu.adi}} ">
-
                 </th>
                 <th scope="row" class="px-2 font-medium text-gray-900  dark:text-white">
                     {{sporcu.adi}} {{sporcu.soyadi}}
                 </th>
-
-                
                 <td class="px-2">
                     {{sporcu.takim.adi}}
                 </td>
-                
-
                 <td class="px-2 text-right">
                     <a href="/takim/sporcu_detail/{{sporcu.uuid}}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Yarışlar</a>
