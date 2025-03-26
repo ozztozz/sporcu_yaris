@@ -270,9 +270,15 @@ def sporcu_detail(request,uuid):
                 
                 if sehir_baraj:
                         eklenecek_yaris['baraj'+str(counter)]=sehir_baraj.baraj
+                        best_full=datetime.combine(datetime.now().date(), yaris['best_time'])
+                        best=best_full.minute*60+best_full.second
+                        bar_full=datetime.combine(datetime.now().date(), sehir_baraj.baraj)
+                        bar=bar_full.minute*60+bar_full.second
                         diff = datetime.combine(datetime.now().date(), yaris['best_time'])-datetime.combine(datetime.now().date(), sehir_baraj.baraj)
-                        fark=(diff.seconds+diff.microseconds/1000000)
+                        
+                        fark=round(diff.seconds+diff.microseconds/1000000,2)
                         eklenecek_yaris['fark'+str(counter)]=fark
+                        eklenecek_yaris['yuzde'+str(counter)]=bar/best
                 else:
                         eklenecek_yaris['baraj'+str(counter)]=''
                         eklenecek_yaris['fark'+str(counter)]=''
