@@ -233,7 +233,7 @@ def sporcu_detail(request,uuid):
     
 
     sporcu_yaris_list=Yarislar.objects.filter(sporcu_id=sporcu.id)
-    sporcu_yarislar=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),worst_time=Max('zaman'),son_yaris=Max('tarih')).order_by('-son_yaris','brans','-mesafe')
+    sporcu_yarislar=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),worst_time=Max('zaman'),son_yaris=Max('tarih')).order_by('brans','-mesafe')
 
     for yaris in sporcu_yarislar:
         eklenecek_yaris={}

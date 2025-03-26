@@ -83,13 +83,25 @@
 
                     {% for yaris in yaris_sonuc %}
                     
+                    {% ifchanged yaris.brans  %}
+                        
+                   
+                        
+                    <tr>
+                    <td class="text-sm font-semibold text-gray-600 ">
+                        {{yaris.brans}}
+                    </td>
+                </tr>
+                {% endifchanged %}
+                    
                     <tr
                     onclick="updateChart({{yaris.xValues}},{{yaris.yValues}},'{{yaris.brans}} - {{yaris.mesafe}}','{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}')"
                     data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="w-full max-h-20 bg-white border-b-2 focus:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
+
                        
-                        <td class="max-w-20 flex-wrap text-xs text-gray-400"> <span class="text-sm font-semibold text-gray-600 ">{{yaris.brans}}  {{yaris.mesafe}}</span>
+                        <td class="max-w-20 flex-wrap text-xs text-gray-400"> <span class="text-sm font-semibold text-gray-600 "> {{yaris.mesafe}}</span>
                              <br> {{yaris.son_yaris}}</td>
 
                         
