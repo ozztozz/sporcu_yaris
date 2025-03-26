@@ -113,7 +113,7 @@
                         
                         {% if yaris.sehir0 %}
                         <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj0 %} bg-green-400 
-                            {%elif yaris.yuzde0 > 80 %} bg-gradient-to-r from-red-200 from-{{yaris.kalan0}}% via-orange-200 via-{{yaris.kalan0}}% to-green-400 to-{{yaris.yuzde0}}%
+                            {%elif yaris.yuzde0 > 80 %} bg-gradient-to-r from-green-50 from-10% via-green-200 via-{{yaris.kalan0}}% to-green-400 to-{{yaris.yuzde0}}%
                             {%else%} bg-slate-50
                             {% endif %} text-xs text-gray-600" >
                             {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }} 
@@ -126,7 +126,7 @@
                         
                         {% if yaris.sehir1 %}
                         <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj1 %} bg-green-400 
-                        {%elif yaris.yuzde1 > 80 %} bg-gradient-to-r from-red-200 from-{{yaris.kalan1}}% via-orange-200 via-{{yaris.kalan1}}% to-green-400 to-{{yaris.yuzde1}}%
+                        {%elif yaris.yuzde1 > 80 %} bg-gradient-to-r from-green-100 from-{{yaris.kalan1}}% via-green-200 via-{{yaris.kalan1}}% to-green-400 to-{{yaris.yuzde1}}%
                         {%else%} bg-slate-50
                         {% endif %} text-xs text-gray-600" >
                             {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}
