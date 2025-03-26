@@ -43,7 +43,8 @@ def takim_guncelle(request,id):
 
     form = FormTakim(instance = takim)
     return render(request, "takim_ekle.html", {'form':form,'takim':takim})
-@login_required
+
+
 def sporcu_list(request):
     sporcu_list=Sporcu.objects.all().order_by('takim','dogum_tarihi__year','adi')
 
@@ -168,61 +169,6 @@ from django.db.models import Min,Max
 
 
 
-def sporcu_detail1(request,sporcu_id):
-    sporcu=get_object_or_404(Sporcu,id=sporcu_id)
-    sporcu_yas=datetime.now().year-sporcu.dogum_tarihi.year
-
-    yaris_list_query=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.uuid).annotate(best_time=Min('zaman'),son_yaris=Max('tarih')).order_by('-son_yaris','brans')
-    yaris_list=list(yaris_list_query)
-    
-    baraj_list=list(Barajlar.objects.filter(tarih__gte=datetime.now(),
-                                      cinsiyet=sporcu.cinsiyet,
-                                      yas=sporcu_yas))
-
-
-    for yaris_sonuc in yaris_list:
-        baraj_query=Barajlar.objects.filter(brans=yaris_sonuc['brans'],
-                                      mesafe=yaris_sonuc['mesafe'],
-                                      tarih__gte=datetime.now(),
-                                      cinsiyet=sporcu.cinsiyet,
-                                      yas=sporcu_yas
-                                      )
-        
-        fark=[]
-        
-        for item in baraj_list:
-            if item.brans==yaris_sonuc['brans'] and item.mesafe==yaris_sonuc['mesafe']:
-                diff = datetime.combine(datetime.now().date(), yaris_sonuc['best_time'])-datetime.combine(datetime.now().date(), item.baraj)
-                fark.append(diff.seconds+diff.microseconds/1000000)
-            else:
-                fark.append('')
-        yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,
-                                         brans=yaris_sonuc['brans'],
-                                         mesafe=yaris_sonuc['mesafe']
-                                         ).order_by('mesafe','brans','-tarih')[:7][::-1]
-        xValues = []
-        yValues = []
-        for yaris in yarislar:
-            xValues.append(yaris.tarih.strftime("%d.%m.%y"))
-            if yaris.zaman.minute>0:
-                yValues.append(yaris.zaman.microsecond / 100000000+yaris.zaman.second/100+yaris.zaman.minute)
-            else:
-                yValues.append(yaris.zaman.second+yaris.zaman.microsecond / 1000000)
-        
-        yaris_sonuc['xValues']=xValues
-        yaris_sonuc['yValues']=yValues
-        yaris_sonuc['barajlar']=baraj_list
-        yaris_sonuc['fark']=fark
-
-    
-    
-    
-    return render(request,'sporcu_detail.html',{'sporcu':sporcu,
-                                                'yaris_list':yaris_list,
-                                              
-                                                  })
-
-
 def sporcu_detail(request,uuid):
     sporcu=get_object_or_404(Sporcu,uuid=uuid)
     sporcu_yas=datetime.now().year-sporcu.dogum_tarihi.year
@@ -281,7 +227,9 @@ def sporcu_detail(request,uuid):
                         
                         fark=round(diff.seconds+diff.microseconds/1000000,1)
                         eklenecek_yaris['fark'+str(counter)]=fark
-                        eklenecek_yaris['yuzde'+str(counter)]=bar/best
+                        eklenecek_yaris['yuzde'+str(counter)]=int((bar/best*10))*10
+                        eklenecek_yaris['kalan'+str(counter)]=100-int((bar/best*10))*10
+                        
                 else:
                         eklenecek_yaris['baraj'+str(counter)]=''
                         eklenecek_yaris['fark'+str(counter)]=''
