@@ -43,7 +43,7 @@
         <div class="flex w-full shadow-md sm:rounded-lg justify-center">
             <table class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr class="bg-green-100">
+                    <tr class="bg-slate-100">
                         <th scope="col" class="flex-wrap py-3">
                             Branş-Mesafe
                         </th>
@@ -87,7 +87,7 @@
                     <tr
                     onclick="updateChart({{yaris.xValues}},{{yaris.yValues}},'{{yaris.brans}} - {{yaris.mesafe}}','{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}')"
                     data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                    class="w-full max-h-20 bg-green-50 border-b-2 focus:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    class="w-full max-h-20 bg-white border-b-2 focus:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                        
                         <td class="max-w-20 flex-wrap">{{yaris.brans}} {{yaris.mesafe}}</td>
@@ -101,11 +101,11 @@
                         
                         {% if yaris.sehir0 %}
                         <td class="max-w-20 flex-wrap {%if yaris.yuzde0 > 1 %} bg-green-400 
-                            {%elif yaris.yuzde0 > 0.95 %} bg-gradient-to-r from-green-100 from-5% via-green-200 via-10% to-green-400 to-90%
-                            {%else%} bg-green-50
+                            {%elif yaris.yuzde0 > 0.95 %} bg-gradient-to-r from-red-50 from-5% via-green-200 via-10% to-green-400 to-90%
+                            {%else%} bg-yellow-50
                             {% endif %}" >
                             {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj0  %} <br> {{yaris.fark0 }} {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj0  %}  {{yaris.fark0 }} {% endif %}</span>
                         </td>
                             
                         {% endif %}
@@ -114,21 +114,21 @@
                         
                         {% if yaris.sehir1 %}
                         <td class="max-w-20 flex-wrap {%if yaris.yuzde1 > 1 %} bg-green-400 
-                            {%elif yaris.yuzde1 > 0.95 %} bg-gradient-to-r from-green-100 from-5% via-green-200 via-10% to-green-400 to-90%
-                            {%else%} bg-green-50
+                            {%elif yaris.yuzde1 > 0.95 %} bg-gradient-to-r from-red-50 from-5% via-green-200 via-10% to-green-400 to-90%
+                            {%else%} bg-yellow-50
                             {% endif %}" >
                             {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj1  %} <br> {{yaris.fark1 }}  {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj1  %}  {{yaris.fark1 }}  {% endif %}</span>
                         </td>
                         {% endif %}
 
                         {% if yaris.sehir2 %}
                         <td class="max-w-20 flex-wrap {%if yaris.yuzde2 > 1 %} bg-green-400 
-                            {%elif yaris.yuzde2 > 0.95 %} bg-gradient-to-r from-green-100 from-5% via-green-200 via-10% to-green-400 to-90%
-                            {%else%} bg-green-50
+                            {%elif yaris.yuzde2 > 0.95 %} bg-gradient-to-r from-red-50 from-5% via-green-200 via-10% to-green-400 to-90%
+                            {%else%} bg-yellow-50
                             {% endif %}" >
                             {{yaris.baraj2 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj2  %} <br> {{yaris.fark2 }}  {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj2  %}  {{yaris.fark2 }}  {% endif %}</span>
                         </td>
                         {% endif %}
                             
