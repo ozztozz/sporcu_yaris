@@ -45,7 +45,8 @@ def takim_guncelle(request,id):
     return render(request, "takim_ekle.html", {'form':form,'takim':takim})
 @login_required
 def sporcu_list(request):
-    sporcu_list=Sporcu.objects.all()
+    sporcu_list=Sporcu.objects.all().order_by('takim','dogum_tarihi__year','adi')
+
     return render(request,'sporcu_list.html',{'sporcu_list':sporcu_list})
 
 @login_required
@@ -232,7 +233,7 @@ def sporcu_detail(request,uuid):
     
 
     sporcu_yaris_list=Yarislar.objects.filter(sporcu_id=sporcu.id)
-    sporcu_yarislar=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),son_yaris=Max('tarih')).order_by('-son_yaris','brans')
+    sporcu_yarislar=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),son_yaris=Max('tarih')).order_by('-son_yaris','brans','-mesafe')
 
     for yaris in sporcu_yarislar:
         eklenecek_yaris={}
@@ -276,7 +277,7 @@ def sporcu_detail(request,uuid):
                         bar=bar_full.minute*60+bar_full.second
                         diff = datetime.combine(datetime.now().date(), yaris['best_time'])-datetime.combine(datetime.now().date(), sehir_baraj.baraj)
                         
-                        fark=round(diff.seconds+diff.microseconds/1000000,2)
+                        fark=round(diff.seconds+diff.microseconds/1000000,1)
                         eklenecek_yaris['fark'+str(counter)]=fark
                         eklenecek_yaris['yuzde'+str(counter)]=bar/best
                 else:

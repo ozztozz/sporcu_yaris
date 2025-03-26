@@ -70,6 +70,9 @@ class Sporcu (models.Model):
     takim=models.ForeignKey(Takim,on_delete=models.CASCADE)
     uuid=models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
+    def __dogum_yili__(self):
+        return self.dogum_tarihi.year
+
     def save(self, *args, **kwargs):
         self.uuid = uuid.uuid4()
         super(Sporcu, self).save(*args, **kwargs)
