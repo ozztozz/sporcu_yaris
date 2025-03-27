@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES,BarajBrans,Barajlar
+from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES,BarajBrans,Barajlar,MESAFE
 from .forms import FormTakim,FormSporcu,FormAntrenman
 from datetime import  time, datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -179,7 +179,25 @@ def sporcu_detail(request,uuid):
     
 
     sporcu_yaris_list=Yarislar.objects.filter(sporcu_id=sporcu.id)
-    sporcu_yarislar=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),worst_time=Max('zaman'),son_yaris=Max('tarih')).order_by('brans','-mesafe')
+    sporcu_yarislar1=sporcu_yaris_list.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),worst_time=Max('zaman'),son_yaris=Max('tarih')).order_by('brans','-mesafe')
+
+
+    PRIORITY_ORDER = {
+        '50':1,
+        '100':2,
+        '200':3,
+        '400':4,
+        '800':5,
+        '1500':6,
+
+
+
+        }
+    sporcu_yarislar=sorted(
+            sporcu_yarislar1,
+            key=lambda x: [x['brans'],PRIORITY_ORDER[x['mesafe']]],
+        )
+
 
     for yaris in sporcu_yarislar:
         eklenecek_yaris={}
@@ -228,7 +246,8 @@ def sporcu_detail(request,uuid):
                         fark=round(diff.seconds+diff.microseconds/1000000,1)
                         eklenecek_yaris['fark'+str(counter)]=fark
                         eklenecek_yaris['yuzde'+str(counter)]=int((bar/best*10))*10
-                        eklenecek_yaris['kalan'+str(counter)]=100-int((bar/best*10))*10
+                        eklenecek_yaris['kalan'+str(counter)]=int(((best-bar)/bar*150))*5
+                    
                         
                 else:
                         eklenecek_yaris['baraj'+str(counter)]=''

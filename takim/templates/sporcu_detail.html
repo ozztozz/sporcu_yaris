@@ -112,37 +112,51 @@
                                                 
                         
                         {% if yaris.sehir0 %}
-                        <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj0 %} bg-green-400 
-                            {%elif yaris.yuzde0 > 80 %} bg-gradient-to-r from-green-50 from-10% via-green-200 via-{{yaris.kalan0}}% to-green-400 to-{{yaris.yuzde0}}%
-                            {%else%} bg-slate-50
-                            {% endif %} text-xs text-gray-600" >
-                            {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }} 
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj0  %} <br>  {{yaris.fark0 }} {%elif yaris.best_time < yaris.baraj0 %}<img class="h-5" src="https://img.icons8.com/?size=100&id=63262&format=png&color=000000" alt=""> {% endif %}</span>
-                        </td>
-                            
-                        {% endif %}
-                            
-                     
-                        
-                        {% if yaris.sehir1 %}
-                        <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj1 %} bg-green-400 
-                        {%elif yaris.yuzde1 > 80 %} bg-gradient-to-r from-green-100 from-{{yaris.kalan1}}% via-green-200 via-{{yaris.kalan1}}% to-green-400 to-{{yaris.yuzde1}}%
-                        {%else%} bg-slate-50
-                        {% endif %} text-xs text-gray-600" >
-                            {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj1  %}<br> {{yaris.fark1 }}  {% endif %}</span>
-                        </td>
+
+                            {%if yaris.best_time < yaris.baraj0 %}
+                            <td class="max-w-20 flex-wrap bg-gradient-to-r rounded-sm from-green-200 to-green-400 text-xs text-gray-600"> 
+                                <span> {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }}  
+                                    <img class="h-5" src="https://img.icons8.com/?size=100&id=63262&format=png&color=000000" alt=""></span>
+                            </td>
+                            {%elif yaris.kalan0 < 100 %}
+                            <td class="max-w-20 h-full flex-wrap rounded-sm bg-gradient-to-r from-green-200 to-green-400 text-xs text-gray-600"> 
+                                    <div class="h-10 bg-gradient-to-r from-red-100 to-red-400 rounded-r-sm" 
+                                    style="width: {{yaris.kalan0}}%">{{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }} 
+                                        <span class="font-semibold text-red-600">{%if yaris.best_time > yaris.baraj0  %}
+                                            <br> {{yaris.fark0 }}  {% endif %}</span></div>
+                            </td>
+                            {% else %}
+                            <td class="max-w-20 flex-wrap bg-slate-50 text-gray-600 text-sm">  
+                            {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }}  
+                            </td>
+                            {% endif %}
                         {% endif %}
 
-                        {% if yaris.sehir2 %}
-                        <td class="max-w-20 flex-wrap {%if yaris.best_time < yaris.baraj2 %} bg-green-400 
-                        {%elif yaris.yuzde2 > 80 %} bg-gradient-to-r from-red-200 from-{{yaris.kalan2}}% via-orange-200 via-{{yaris.kalan2}}% to-green-400 to-{{yaris.yuzde2}}%
-                        {%else%} bg-slate-50
-                        {% endif %} text-xs text-gray-600" >
-                            {{yaris.baraj2 |time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > yaris.baraj2  %} <br> {{yaris.fark2 }}  {% endif %}</span>
+
+
+                    {% if yaris.sehir1 %}
+
+                        {%if yaris.best_time < yaris.baraj1 %}
+                        <td class="max-w-20 flex-wrap bg-gradient-to-r rounded-sm from-green-200 to-green-400 text-xs text-gray-600"> 
+                            <span> {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}  
+                                <img class="h-5" src="https://img.icons8.com/?size=100&id=63262&format=png&color=000000" alt=""></span>
+                        </td>
+                        {%elif yaris.kalan1 < 100 %}
+                        <td class="max-w-20 h-full flex-wrap rounded-sm bg-gradient-to-r from-green-200 to-green-400 text-xs text-gray-600"> 
+                                <div class="h-10 bg-gradient-to-r from-red-100 to-red-400 rounded-r-sm" 
+                                style="width: {{yaris.kalan1}}%">{{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }} 
+                                    <span class="font-semibold text-red-600">{%if yaris.best_time > yaris.baraj1  %}
+                                        <br> {{yaris.fark1 }}  {% endif %}</span></div>
+                        </td>
+                        {% else %}
+                        <td class="max-w-20 flex-wrap bg-slate-50 text-gray-600 text-sm">  
+                        {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}  
                         </td>
                         {% endif %}
+                    {% endif %}
+                            
+                     
+                
                             
 
                     
