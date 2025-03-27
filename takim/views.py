@@ -160,7 +160,7 @@ def htmx_sporcu_ekle(request):
 
 def yaris_list(request):
     yaris_list=Yarislar.objects.all().order_by('brans','mesafe','zaman',)
-    print(type(yaris_list[0].zaman))  
+     
     return render(request,'yaris_list.html',{'yaris_list':yaris_list})
 
 from datetime import datetime,timedelta
@@ -229,7 +229,6 @@ def sporcu_detail(request,uuid):
                                       )
 
         
-        
         for counter,baraj in enumerate(baraj_list):
                 eklenecek_yaris['sehir'+str(counter)]=baraj.sehir
                 eklenecek_yaris['tarih'+str(counter)]=baraj.tarih
@@ -256,11 +255,9 @@ def sporcu_detail(request,uuid):
                         eklenecek_yaris['baraj'+str(counter)]=''
                         eklenecek_yaris['fark'+str(counter)]=''
         yaris_sonuc.append(eklenecek_yaris)
+
     return render(request,'sporcu_detail.html',{'sporcu':sporcu,
                                                 'yaris_sonuc':yaris_sonuc,
                                               
                                                   })
-
-
-
 
