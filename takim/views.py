@@ -246,7 +246,10 @@ def sporcu_detail(request,uuid):
                         fark=round(diff.seconds+diff.microseconds/1000000,1)
                         eklenecek_yaris['fark'+str(counter)]=fark
                         eklenecek_yaris['yuzde'+str(counter)]=int((bar/best*10))*10
-                        eklenecek_yaris['kalan'+str(counter)]=int(((best-bar)/bar*150))*5
+                        kalan=int(((best-bar)/bar*135))*5
+                        if kalan>60:
+                            kalan=60
+                        eklenecek_yaris['kalan'+str(counter)]=kalan
                     
                         
                 else:

@@ -41,8 +41,8 @@
     
             
         <div class="flex w-full shadow-md sm:rounded-lg justify-center">
-            <table class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class=" w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="bg-slate-100">
                         <th scope="col" class="flex-wrap py-3">
                             Branş-Mesafe 
@@ -97,7 +97,7 @@
                     <tr
                     onclick="updateChart({{yaris.xValues}},{{yaris.yValues}},'{{yaris.brans}} - {{yaris.mesafe}}','{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}')"
                     data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                    class="w-full max-h-20 bg-white border-b-2 focus:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    class="w-full max-h-20 bg-white border-b-2 focus:bg-gray-500 hover:bg-gray-50">
 
 
                        
@@ -118,7 +118,7 @@
                                 <span> {{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }}  
                                     <img class="h-5" src="https://img.icons8.com/?size=100&id=63262&format=png&color=000000" alt=""></span>
                             </td>
-                            {%elif yaris.kalan0 < 100 %}
+                            {%elif yaris.kalan0 < 60 %}
                             <td class="max-w-20 h-full flex-wrap rounded-sm bg-gradient-to-r from-green-200 to-green-400 text-xs text-gray-600"> 
                                     <div class="h-10 bg-gradient-to-r from-red-100 to-red-400 rounded-r-sm" 
                                     style="width: {{yaris.kalan0}}%">{{yaris.baraj0 |time:"i:s.u"|slice:"0:8" }} 
@@ -141,7 +141,7 @@
                             <span> {{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }}  
                                 <img class="h-5" src="https://img.icons8.com/?size=100&id=63262&format=png&color=000000" alt=""></span>
                         </td>
-                        {%elif yaris.kalan1 < 100 %}
+                        {%elif yaris.kalan1 < 60 %}
                         <td class="max-w-20 h-full flex-wrap rounded-sm bg-gradient-to-r from-green-200 to-green-400 text-xs text-gray-600"> 
                                 <div class="h-10 bg-gradient-to-r from-red-100 to-red-400 rounded-r-sm" 
                                 style="width: {{yaris.kalan1}}%">{{yaris.baraj1 |time:"i:s.u"|slice:"0:8" }} 
@@ -172,7 +172,7 @@
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative p-4 w-full max-w-md max-h-full">
 
-                    <div class="relative border-spacing-3 bg-gradient-to-b from-slate-100 via-zinc-200 to-slate-100 rounded-lg shadow-sm dark:bg-gray-700">
+                    <div class="relative border-spacing-3 bg-gradient-to-b from-slate-100 via-zinc-200 to-slate-100 rounded-lg shadow-sm">
 
                         <div class="p-6 md:p-5 text-center">
                             <h1>{{sporcu.adi}} {{sporcu.soyadi}}
